@@ -7,6 +7,7 @@ enum Direction { case FRONT; case RIGHT; case BACK; case LEFT; }
 enum Heading: string { case NORTH='NORTH'; case EAST='EAST'; case SOUTH='SOUTH'; case WEST='WEST'; }
 enum BuildType: string { case FLOOR='FLOOR'; case WALL='WALL'; case PILLAR='PILLAR'; case WINDOW='WINDOW'; case STAIRS='STAIRS'; }
 enum MaterialType: string { case FLOOR='FLOOR'; case WALL='WALL'; case PILLAR='PILLAR'; case WINDOW='WINDOW'; case STAIRS='STAIRS'; }
+enum ZoneType: string { case MATERIAL_STORAGE='MATERIAL_STORAGE'; }
 
 class ActionException extends \RuntimeException {
     public function __construct(string $message, public readonly int $tick, public readonly int $cost) { parent::__construct($message); }
@@ -68,8 +69,12 @@ class CellInfo extends View {
     public function block(): ?BlockInfo { return isset($this->data['block']) ? new BlockInfo($this->data['block']) : null; }
     public function task(): ?TaskInfo { return isset($this->data['task']) ? new TaskInfo($this->data['task']) : null; }
     public function zone(): ?ZoneInfo { return isset($this->data['zone']) ? new ZoneInfo($this->data['zone']) : null; }
+    public function material(): ?MaterialInfo { return isset($this->data['material']) ? new MaterialInfo($this->data['material']) : null; }
+    public function robot(): ?RobotInfo { return isset($this->data['robot']) ? new RobotInfo($this->data['robot']) : null; }
 }
 class SpaceInfo extends View {
+    /** Existing scan snapshot, ordered from the floor upward. @return CellInfo[] */
+    public function cells(): array { return array_map(static fn($c)=>new CellInfo($c), $this->data['cells']); }
     public function robot(): ?RobotInfo { return isset($this->data['robot']) ? new RobotInfo($this->data['robot']) : null; }
     /** @return MaterialInfo[] */
     public function materials(): array { return array_map(static fn($m)=>new MaterialInfo($m), $this->data['materials']); }
@@ -81,7 +86,11 @@ class ScanInfo extends View {
     public function destination(): ?Position { return isset($this->data['destination']) ? Position::from($this->data['destination']) : null; }
     public function elevationDelta(): ?int { return $this->data['elevationDelta']; }
     public function floor(): CellInfo { return new CellInfo($this->data['floor']); }
-    public function space(): SpaceInfo { return new SpaceInfo($this->data['space']); }
+    public function space(): SpaceInfo {
+        return new SpaceInfo($this->data['space'] + ['cells'=>array_values(array_filter(
+            $this->data['cells'], static fn($c)=>$c['offset'] > 0
+        ))]);
+    }
 }
 class Robot {
     public function __construct(private readonly Transport $wire) {}

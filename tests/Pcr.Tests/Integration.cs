@@ -65,5 +65,74 @@ static class Integration
         test("PHP infinite loop is terminated with diagnostic",()=>{
             var result=Run("spin",Basic("spin")); Check(result.Code==1 && result.Text.Contains("timed out"),result.Text);
         });
+        test("Library Navigation reaches flat target via detour and never enters wall",()=>{
+            var s=Basic("navigation-flat"); s.MaxTicks=300;
+            for(int x=0;x<=2;x++) s.Blocks.Add(new(new(x,1,0),BuildType.FLOOR));
+            s.Blocks.Add(new(new(1,0,1),BuildType.WALL));
+            var result=Run("navigation-flat",s); Check(result.Code==0,result.Text);
+            using var data=System.Text.Json.JsonDocument.Parse(result.Result);
+            var moves=data.RootElement.GetProperty("events").EnumerateArray().Where(e=>e.GetProperty("action").GetString()=="MOVE_FORWARD").ToArray();
+            Check(moves.Length>0 && moves.All(e=>e.GetProperty("success").GetBoolean()),"Invalid cell was used as a route");
+        });
+        test("Library Navigation reaches upper floor and returns via stairs",()=>{
+            var s=Basic("navigation-stairs");
+            s.Blocks.AddRange([new(new(1,0,1),BuildType.STAIRS,Heading.EAST),new(new(2,0,1),BuildType.FLOOR)]);
+            var result=Run("navigation-stairs",s); Check(result.Code==0,result.Text);
+        });
+        test("Library managers filter current snapshots and break distance ties deterministically",()=>{
+            var s=Basic("managers");
+            s.Materials.AddRange([new("b-material",new(0,1,1),BuildType.WALL),new("a-material",new(1,0,1),BuildType.WALL),new("0-window",new(0,-1,1),BuildType.WINDOW)]);
+            s.Tasks.AddRange([new("b-task",new(0,1,2),BuildType.WALL,BuildType.WALL),new("a-task",new(1,0,2),BuildType.WALL,BuildType.WALL)]);
+            s.Zones.AddRange([new("z-first","置き場1","MATERIAL_STORAGE",[new(1,0,0)]),new("a-zone","other","MATERIAL_STORAGE",[new(2,0,0)])]);
+            var result=Run("managers",s); Check(result.Code==0,result.Text);
+        });
+        Scenario Storage(string program)
+        {
+            var s=Basic(program); s.MaxTicks=2000; s.Blocks.Clear();
+            for(int y=0;y<=2;y++) for(int x=0;x<=4;x++) s.Blocks.Add(new(new(x,y,0),BuildType.FLOOR));
+            s.Materials.AddRange([new("held",new(1,0,1),BuildType.WALL),new("mixed",new(1,1,1),BuildType.WINDOW),
+                new("blocked",new(2,1,1),BuildType.WALL),new("pile",new(4,1,1),BuildType.WALL)]);
+            s.Blocks.Add(new(new(2,1,2),BuildType.FLOOR));
+            s.Zones.Add(new("storage","置き場1","MATERIAL_STORAGE",[new(1,1,0),new(2,1,0),new(3,1,0),new(4,1,0)]));
+            return s;
+        }
+        test("Library Storage prioritizes same-material pile over nearer empty cell",()=>{
+            var result=Run("storage-pile",Storage("storage-pile")); Check(result.Code==0,result.Text);
+        });
+        test("Library Storage skips mixed, obstructed and full stacks then uses empty cell",()=>{
+            var s=Storage("storage-empty");
+            for(int z=2;z<=4;z++) s.Materials.Add(new("full-"+z,new(4,1,z),BuildType.WALL));
+            var result=Run("storage-empty",s); Check(result.Code==0,result.Text);
+        });
+        test("Library Storage returns no candidate when all zone cells are blocked",()=>{
+            var s=Storage("storage-full");
+            s.Zones[0]=s.Zones[0] with {Cells=[new(1,1,0),new(2,1,0)]};
+            var result=Run("storage-full",s); Check(result.Code==0,result.Text);
+        });
+        test("Standard Builder and Carrier finish library scenario deterministically",()=>{
+            var s=Json.Load(Path.Combine(root,"scenarios","library.json"));
+            s.Robots=s.Robots.Select(r=>r with {Program=Path.GetFullPath(r.Program,Path.Combine(root,"scenarios"))}).ToList();
+            var result=Run("library",s); Check(result.Code==0,result.Text);
+            var repeat=Run("library-repeat",s); Check(repeat.Code==0 && result.Result==repeat.Result,repeat.Text);
+            using var data=System.Text.Json.JsonDocument.Parse(result.Result);
+            Check(data.RootElement.GetProperty("tasks").EnumerateArray().All(t=>t.GetProperty("status").GetString()=="COMPLETED"),"Builder left tasks unfinished");
+            var delivered=data.RootElement.GetProperty("materials").EnumerateArray().Single(m=>m.GetProperty("id").GetString()=="delivery").GetProperty("position");
+            Check(delivered.GetProperty("x").GetInt32()==4 && new[]{4,5}.Contains(delivered.GetProperty("y").GetInt32()),"Carrier did not deliver to storage");
+            var actions=data.RootElement.GetProperty("events").EnumerateArray().Select(e=>e.GetProperty("action").GetString()).ToHashSet();
+            Check(new[]{"MOVE_FORWARD","PICKUP","DROP","BUILD"}.All(actions.Contains),"Missing standard-library work actions");
+        });
+        test("Standard Builder recovers from completed task and stores unused material",()=>{
+            var s=Basic("builder-race"); s.MaxTicks=300;
+            s.Robots.Add(new("b",new(2,0,0),Heading.WEST,Fixture("builder-race")));
+            s.Blocks.Add(new(new(2,1,0),BuildType.FLOOR));
+            s.Zones.Add(new("storage","置き場1","MATERIAL_STORAGE",[new(2,1,0)]));
+            s.Materials.AddRange([new("lower",new(1,0,1),BuildType.WALL),new("upper",new(1,0,2),BuildType.WALL)]);
+            s.Tasks.Add(new("task",new(1,0,1),BuildType.WALL,BuildType.WALL));
+            var result=Run("builder-race",s); Check(result.Code==0,result.Text);
+            Check(result.Text.Contains("TaskInvalidated:") && result.Text.Contains("b DROP OK"),result.Text);
+            using var data=System.Text.Json.JsonDocument.Parse(result.Result);
+            Check(data.RootElement.GetProperty("tasks")[0].GetProperty("status").GetString()=="COMPLETED", "Task not completed");
+            Check(data.RootElement.GetProperty("robots").EnumerateArray().All(r=>r.GetProperty("carrying").GetArrayLength()==0),"Builder retained unused inventory");
+        });
     }
 }

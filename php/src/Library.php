@@ -71,7 +71,7 @@ class Navigation {
             [new Position($target->x,$target->y+1,$z),Heading::NORTH]
         ];
         $origin = $this->robot->position();
-        usort($approaches, static fn($a,$b)=>$a[0]->distance($origin)<=>$b[0]->distance($origin));
+        usort($approaches, static fn($a,$b)=>($a[0]->distance($origin)<=>$b[0]->distance($origin)) ?: strcmp($a[0]->key(),$b[0]->key()));
         foreach ($approaches as [$p,$h]) {
             try { $this->moveTo($p); $this->turnTo($h); return; }
             catch (NavigationException $e) { /* Try another side. */ }
@@ -100,16 +100,74 @@ class MaterialManager {
 class ZoneManager {
     public function __construct(protected World $world) {}
     public function findByName(string $name): ?ZoneInfo {
-        foreach ($this->world->zones() as $zone) if ($zone->name()===$name) return $zone;
+        foreach ($this->orderedZones() as $zone) if ($zone->name()===$name) return $zone;
         return null;
+    }
+    public function findByType(ZoneType $type): ?ZoneInfo {
+        foreach ($this->orderedZones() as $zone) if ($zone->type()===$type->value) return $zone;
+        return null;
+    }
+    /** @return ZoneInfo[] */
+    protected function orderedZones(): array {
+        $zones = $this->world->zones();
+        usort($zones, static fn($a,$b)=>strcmp($a->id(),$b->id()));
+        return $zones;
     }
 }
 class StorageManager {
     public function __construct(protected Robot $robot, protected Navigation $navigation) {}
+    /** Moves to an approach and returns its currently usable storage cell; not a reservation. */
+    public function findDropPosition(ZoneInfo $zone): ?Position {
+        return $this->locate($zone, []);
+    }
+    /** Rank the accessible part of the column using only the existing local scan. */
+    protected function dropRank(Position $floor, MaterialType $type): ?int {
+        $scan = $this->robot->scan();
+        if ($scan->floor()->position() != $floor || $scan->floor()->block()?->type() !== BuildType::FLOOR) return null;
+        $top = $floor->z;
+        $ceiling = $floor->z;
+        $hasPile = false;
+        foreach ($scan->space()->cells() as $cell) {
+            if ($cell->block() !== null || $cell->robot() !== null) break;
+            $ceiling = $cell->position()->z;
+            if (($material = $cell->material()) !== null) {
+                if ($material->type() !== $type) return null;
+                $hasPile = true;
+                $top = $material->position()->z;
+            }
+        }
+        return $top < $ceiling ? ($hasPile ? 0 : 1) : null;
+    }
+    private function locate(ZoneInfo $zone, array $excluded): ?Position {
+        if ($zone->type() !== ZoneType::MATERIAL_STORAGE->value) throw new \InvalidArgumentException('Expected material storage zone');
+        $held = $this->robot->carrying() ?? throw new \LogicException('Storage requires a carried material');
+        $origin = $this->robot->position();
+        $cells = $zone->cells();
+        usort($cells, static fn($a,$b)=>($a->distance($origin)<=>$b->distance($origin)) ?: strcmp($a->key(),$b->key()));
+        $empty = [];
+        foreach ($cells as $cell) {
+            if (isset($excluded[$cell->key()])) continue;
+            try { $this->navigation->moveAdjacent($cell, $cell->z); }
+            catch (NavigationException $e) { continue; }
+            $rank = $this->dropRank($cell, $held->type());
+            if ($rank === 0) return $cell;
+            if ($rank === 1) $empty[] = $cell;
+        }
+        foreach ($empty as $cell) {
+            try { $this->navigation->moveAdjacent($cell, $cell->z); }
+            catch (NavigationException $e) { continue; }
+            if ($this->dropRank($cell, $held->type()) !== null) return $cell;
+        }
+        return null;
+    }
     public function store(ZoneInfo $zone): void {
-        foreach ($zone->cells() as $cell) {
-            try { $this->navigation->moveAdjacent($cell, $cell->z); $this->robot->drop(); return; }
-            catch (ActionException|NavigationException $e) { /* Try the next storage cell. */ }
+        $excluded = [];
+        while (($cell = $this->locate($zone, $excluded)) !== null) {
+            try { $this->robot->drop(); return; }
+            catch (ActionException $e) {
+                // A scan never reserves space. Try another cell after a race.
+                $excluded[$cell->key()] = true;
+            }
         }
         throw new NavigationException('Storage has no accessible free stack');
     }

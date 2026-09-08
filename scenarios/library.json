@@ -1,0 +1,434 @@
+{
+  "seed": 42,
+  "maxTicks": 3000,
+  "blocks": [
+    {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 6,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 6,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 6,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 6,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 6,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 6,
+        "z": 0
+      },
+      "type": "FLOOR"
+    }
+  ],
+  "materials": [
+    {
+      "id": "wall",
+      "position": {
+        "x": 0,
+        "y": 1,
+        "z": 1
+      },
+      "type": "WALL"
+    },
+    {
+      "id": "window",
+      "position": {
+        "x": 0,
+        "y": 2,
+        "z": 1
+      },
+      "type": "WINDOW"
+    },
+    {
+      "id": "delivery",
+      "position": {
+        "x": 0,
+        "y": 5,
+        "z": 1
+      },
+      "type": "PILLAR"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "wall-task",
+      "position": {
+        "x": 5,
+        "y": 1,
+        "z": 1
+      },
+      "type": "WALL",
+      "requiredMaterial": "WALL"
+    },
+    {
+      "id": "window-task",
+      "position": {
+        "x": 5,
+        "y": 2,
+        "z": 1
+      },
+      "type": "WINDOW",
+      "requiredMaterial": "WINDOW"
+    }
+  ],
+  "zones": [
+    {
+      "id": "storage",
+      "name": "置き場1",
+      "type": "MATERIAL_STORAGE",
+      "cells": [
+        {
+          "x": 4,
+          "y": 4,
+          "z": 0
+        },
+        {
+          "x": 4,
+          "y": 5,
+          "z": 0
+        }
+      ]
+    }
+  ],
+  "robots": [
+    {
+      "id": "Builder",
+      "position": {
+        "x": 1,
+        "y": 1,
+        "z": 0
+      },
+      "direction": "WEST",
+      "program": "../php/programs/builder.php"
+    },
+    {
+      "id": "Carrier",
+      "position": {
+        "x": 1,
+        "y": 5,
+        "z": 0
+      },
+      "direction": "WEST",
+      "program": "../php/programs/carrier.php"
+    }
+  ]
+}

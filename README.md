@@ -18,7 +18,7 @@ Node.js はサンプル JSON を再生成する場合だけ必要です。通常
 ./scripts/verify.ps1
 ```
 
-ビルド、PHP 構文検証、32 件の Core テストと 7 件の PHP 結合テストを実行します。検証用の .NET/NuGet ディレクトリはリポジトリ内に置き、プロセスの環境変数は終了時に復元します。結合テストには意図的な無限ループの停止確認があるため、最低 5 秒程度かかります。
+ビルド、PHP 構文検証、32 件の Core テストと 15 件の PHP 結合テストを実行します。検証用の .NET/NuGet ディレクトリはリポジトリ内に置き、プロセスの環境変数は終了時に復元します。結合テストには意図的な無限ループの停止確認があるため、最低 5 秒程度かかります。
 
 デモを実行するには、ビルド後に次を実行します。
 
@@ -26,7 +26,15 @@ Node.js はサンプル JSON を再生成する場合だけ必要です。通常
 dotnet src/Pcr.Simulator/bin/Debug/net9.0/Pcr.Simulator.dll scenarios/demo.json --output artifacts/demo.json
 ```
 
-2 台のロボットが別々の PHP プログラムを実行します。Robot01 は「置き場1」への資材運搬・drop・再取得、5 種類の建築、階段の上り下りを行います。Robot02 は現場情報を照会しながら 8 Tick 待機します。標準デモの完了結果は **243 Tick、5/5 Task 完了**です。
+2 台のロボットが別々の PHP プログラムを実行します。Robot01 は「置き場1」への資材運搬・drop・再取得、5 種類の建築、階段の上り下りを行います。Robot02 は現場情報を照会しながら 8 Tick 待機します。現在の標準ライブラリでの完了結果は **283 Tick、5/5 Task 完了**です。
+
+標準 Builder / Carrier の仕事を確認する新しい Scenario:
+
+```powershell
+dotnet src/Pcr.Simulator/bin/Debug/net9.0/Pcr.Simulator.dll scenarios/library.json --output artifacts/library.json
+```
+
+Builder が WALL / WINDOW の 2 Task を検索して施工し、Carrier が PILLAR 資材を「置き場1」へ保管します。結果は **58 Tick、2/2 Task 完了**です。[標準ライブラリの使い方](docs/standard-library.md)に検索・移動・保管の契約とサンプルの前提を記載しています。
 
 `--php C:/tools/php83/php.exe` で PHP 実行ファイルを、`--runtime /absolute/path/php/runtime.php` で Runtime を指定できます。プログラムのパスは Scenario JSON のディレクトリ基準です。Runtime の既定パスは実行時のカレントディレクトリ基準です。
 
@@ -45,7 +53,9 @@ dotnet tests/Pcr.Tests/bin/Debug/net9.0/Pcr.Tests.dll
 | `php/src/Api.php` | Robot / World API、読み取り用 DTO、例外 |
 | `php/src/Library.php` | 拡張可能な Navigation / 各 Manager / Construction |
 | `php/programs/demo.php` | 資材運搬から建築までのプログラム例 |
+| `php/programs/builder.php`, `carrier.php` | Task 処理ループと単純な配送の標準サンプル |
 | `scenarios/demo.json` | 複数階、全建築タイプ、資材、Zone、2 台のロボット |
+| `scenarios/library.json` | Builder と Carrier が標準ライブラリで仕事を完了する現場 |
 | `tests` | Core テストと実 PHP プロセスの結合テスト |
 | `docs/spec-v0.1.md` | 受領した仕様の原文 |
 | `docs/design.md` | 座標、競合、通信と今回の解釈 |
