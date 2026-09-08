@@ -1,0 +1,515 @@
+{
+  "seed": 42,
+  "maxHeight": 4,
+  "maxTicks": 2000,
+  "blocks": [
+    {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 0,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 1,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 2,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 3,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 5,
+        "z": 0
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0,
+        "z": 1
+      },
+      "type": "STAIRS",
+      "direction": "EAST"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 0,
+        "z": 1
+      },
+      "type": "FLOOR"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 2,
+        "z": 3
+      },
+      "type": "FLOOR"
+    }
+  ],
+  "materials": [
+    {
+      "id": "material-1",
+      "position": {
+        "x": 0,
+        "y": 1,
+        "z": 1
+      },
+      "type": "WALL",
+      "units": 1
+    },
+    {
+      "id": "material-2",
+      "position": {
+        "x": 0,
+        "y": 2,
+        "z": 1
+      },
+      "type": "FLOOR",
+      "units": 1
+    },
+    {
+      "id": "material-3",
+      "position": {
+        "x": 0,
+        "y": 3,
+        "z": 1
+      },
+      "type": "PILLAR",
+      "units": 1
+    },
+    {
+      "id": "material-4",
+      "position": {
+        "x": 0,
+        "y": 4,
+        "z": 1
+      },
+      "type": "WINDOW",
+      "units": 1
+    },
+    {
+      "id": "material-5",
+      "position": {
+        "x": 0,
+        "y": 5,
+        "z": 1
+      },
+      "type": "STAIRS",
+      "units": 1
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "position": {
+        "x": 5,
+        "y": 2,
+        "z": 1
+      },
+      "type": "WALL",
+      "requiredMaterial": "WALL",
+      "requiredUnits": 1,
+      "direction": "EAST"
+    },
+    {
+      "id": "task-2",
+      "position": {
+        "x": 5,
+        "y": 4,
+        "z": 0
+      },
+      "type": "FLOOR",
+      "requiredMaterial": "FLOOR",
+      "requiredUnits": 1,
+      "direction": "EAST"
+    },
+    {
+      "id": "task-3",
+      "position": {
+        "x": 5,
+        "y": 3,
+        "z": 1
+      },
+      "type": "PILLAR",
+      "requiredMaterial": "PILLAR",
+      "requiredUnits": 1,
+      "direction": "EAST"
+    },
+    {
+      "id": "task-4",
+      "position": {
+        "x": 5,
+        "y": 4,
+        "z": 1
+      },
+      "type": "WINDOW",
+      "requiredMaterial": "WINDOW",
+      "requiredUnits": 1,
+      "direction": "EAST"
+    },
+    {
+      "id": "task-5",
+      "position": {
+        "x": 5,
+        "y": 1,
+        "z": 1
+      },
+      "type": "STAIRS",
+      "requiredMaterial": "STAIRS",
+      "requiredUnits": 1,
+      "direction": "EAST"
+    }
+  ],
+  "zones": [
+    {
+      "id": "storage-1",
+      "name": "置き場1",
+      "type": "MATERIAL_STORAGE",
+      "cells": [
+        {
+          "x": 3,
+          "y": 4,
+          "z": 0
+        },
+        {
+          "x": 3,
+          "y": 5,
+          "z": 0
+        }
+      ]
+    }
+  ],
+  "robots": [
+    {
+      "id": "Robot01",
+      "position": {
+        "x": 1,
+        "y": 1,
+        "z": 0
+      },
+      "direction": "WEST",
+      "program": "../php/programs/demo.php"
+    },
+    {
+      "id": "Robot02",
+      "position": {
+        "x": 6,
+        "y": 5,
+        "z": 0
+      },
+      "direction": "NORTH",
+      "program": "../php/programs/observer.php"
+    }
+  ]
+}
